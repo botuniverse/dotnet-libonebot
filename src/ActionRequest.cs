@@ -13,7 +13,7 @@ namespace LibOneBot
     ///     表示一个动作请求
     /// </summary>
     [DataContract]
-    public class Request<TParams, TEcho>
+    public class Request<TParams>
     {
         /// <summary>
         ///     动作名称
@@ -31,20 +31,20 @@ namespace LibOneBot
         ///     动作请求的 <c>echo</c> 字段
         /// </summary>
         [DataMember(Name = "echo")]
-        public TEcho Echo { get; set; }
+        public object? Echo { get; set; }
 
         /// <summary>
         ///     解析动作请求
         /// </summary>
         /// <exception cref="InvalidDataException">动作请求解析错误时产生</exception>
-        public static Request<TParams, TEcho> ParseActionRequest(
+        public static Request<TParams> ParseActionRequest(
             byte[] actionBytes,
             bool isBinary)
         {
             if (isBinary)
                 try
                 {
-                    return MessagePackSerializer.Deserialize<Request<TParams, TEcho>>(actionBytes);
+                    return MessagePackSerializer.Deserialize<Request<TParams>>(actionBytes);
                 }
                 catch (Exception e)
                 {
@@ -53,8 +53,8 @@ namespace LibOneBot
 
             try
             {
-                Request<TParams, TEcho>? result =
-                    JsonConvert.DeserializeObject<Request<TParams, TEcho>>(Encoding.UTF8.GetString(actionBytes));
+                Request<TParams>? result =
+                    JsonConvert.DeserializeObject<Request<TParams>>(Encoding.UTF8.GetString(actionBytes));
                 if (result is null)
                     throw new NullReferenceException();
                 return result;
