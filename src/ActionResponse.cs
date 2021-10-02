@@ -130,4 +130,45 @@ namespace LibOneBot
                 ? MessagePackSerializer.Serialize(this)
                 : Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(this));
     }
+
+    /// <summary>
+    ///     封装了对 <see cref="Response{TData}" /> 的修改操作
+    /// </summary>
+    public static class ResponseExtensions
+    {
+        /// <summary>
+        ///     向 <see cref="Response{TData}" /> 写入成功状态
+        /// </summary>
+        public static void WriteOK<TData>(
+            this Response<TData> response)
+        {
+            response.Status = ActionStatus.StatusOK;
+            response.RetCode = RetCode.RetCodeOK;
+            response.Message = string.Empty;
+        }
+
+        /// <summary>
+        ///     向 <see cref="Response{TData}" /> 写入成功状态, 并写入返回数据
+        /// </summary>
+        public static void WriteData<TData>(
+            this Response<TData> response,
+            TData data)
+        {
+            response.WriteOK();
+            response.Data = data;
+        }
+
+        /// <summary>
+        ///     向 <see cref="Response{TData}" /> 写入失败状态, 并写入返回码和错误信息
+        /// </summary>
+        public static void WriteFailed<TData>(
+            this Response<TData> response,
+            int retCode,
+            Exception exception)
+        {
+            response.Status = ActionStatus.StatusFailed;
+            response.RetCode = retCode;
+            response.Message = exception.Message;
+        }
+    }
 }
