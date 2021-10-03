@@ -9,11 +9,18 @@ using Newtonsoft.Json;
 
 namespace LibOneBot
 {
+    internal interface IRequestIntl
+    {
+        public string Action { get; set; }
+
+        public object? Echo { get; set; }
+    }
+
     /// <summary>
     ///     表示一个动作请求
     /// </summary>
     [DataContract]
-    public class Request<TParams>
+    public class Request<TParams> : IRequestIntl
     {
         /// <summary>
         ///     动作名称
