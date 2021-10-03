@@ -81,11 +81,22 @@ namespace LibOneBot
         #endregion
     }
 
+    internal interface IResponseIntl
+    {
+        public string? Status { get; set; }
+
+        public int RetCode { get; set; }
+
+        public string? Message { get; set; }
+
+        public object? Echo { get; set; }
+    }
+
     /// <summary>
     ///     表示一个动作响应
     /// </summary>
     [DataContract]
-    public class Response<TData>
+    public class Response<TData> : IResponseIntl
     {
         /// <summary>
         ///     执行状态 (成功与否)
@@ -163,6 +174,41 @@ namespace LibOneBot
         /// </summary>
         public static void WriteFailed<TData>(
             this Response<TData> response,
+            int retCode,
+            Exception exception)
+        {
+            response.Status = ActionStatus.StatusFailed;
+            response.RetCode = retCode;
+            response.Message = exception.Message;
+        }
+
+        /// <summary>
+        ///     向 <see cref="Response{TData}" /> 写入成功状态
+        /// </summary>
+        internal static void WriteOKIntl(
+            this IResponseIntl response)
+        {
+            response.Status = ActionStatus.StatusOK;
+            response.RetCode = RetCode.RetCodeOK;
+            response.Message = string.Empty;
+        }
+
+        /// <summary>
+        ///     向 <see cref="Response{TData}" /> 写入成功状态, 并写入返回数据
+        /// </summary>
+        internal static void WriteDataIntl(
+            this IResponseIntl response,
+            object data)
+        {
+            response.WriteOKIntl();
+            Magic.SetProperty(response.GetType(), response, "Data", data);
+        }
+
+        /// <summary>
+        ///     向 <see cref="Response{TData}" /> 写入失败状态, 并写入返回码和错误信息
+        /// </summary>
+        internal static void WriteFailedIntl(
+            this IResponseIntl response,
             int retCode,
             Exception exception)
         {
