@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Project -->
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>LibOneBot</RootNamespace>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <!-- Package -->
+  <PropertyGroup>
+    <PackageId>LibOneBot</PackageId>
+    <Authors>Il Harper</Authors>
+    <Product>LibOneBot</Product>
+    <Description>.NET LibOneBot 可以帮助 OneBot 实现者快速在新的聊天机器人平台实现 OneBot v12 接口标准。</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Copyright>2021 Il Harper</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/botuniverse/dotnet-libonebot</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/botuniverse/dotnet-libonebot</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageTags>onebot,libonebot</PackageTags>
+  </PropertyGroup>
+
+  <!-- Include Resources -->
+  <ItemGroup>
+    <None Include="..\assets\logo.png" Pack="True" PackagePath="\" />
+    <None Include="..\README.md" Pack="True" PackagePath="\" />
+  </ItemGroup>
+
+  <!-- Framework References -->
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <!-- Package References -->
+  <ItemGroup>
+    <PackageReference Include="FastMember" Version="1.5.0" />
+    <PackageReference Include="Fleck" Version="1.2.0" />
+    <PackageReference Include="MessagePack" Version="2.3.85" />
+    <PackageReference Include="MessagePackAnalyzer" Version="2.3.85" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Websocket.Client" Version="4.3.38" />
+  </ItemGroup>
+
+</Project>
