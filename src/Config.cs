@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 #pragma warning disable CS8618
@@ -14,19 +15,19 @@ namespace LibOneBot
         ///     鉴权
         /// </summary>
         [DataMember(Name = "heartbeat")]
-        public Heartbeat Heartbeat { get; set; }
+        public Heartbeat Heartbeat { get; set; } = new();
 
         /// <summary>
         ///     心跳
         /// </summary>
         [DataMember(Name = "auth")]
-        public Auth Auth { get; set; }
+        public Auth Auth { get; set; } = new();
 
         /// <summary>
         ///     通信方式
         /// </summary>
         [DataMember(Name = "comm_methods")]
-        public CommMethods CommMethods { get; set; }
+        public CommMethods CommMethods { get; set; } = new();
     }
 
     /// <summary>
@@ -58,7 +59,7 @@ namespace LibOneBot
         ///     访问令牌
         /// </summary>
         [DataMember(Name = "access_token")]
-        public string AccessToken { get; set; }
+        public string? AccessToken { get; set; }
     }
 
     /// <summary>
@@ -71,25 +72,25 @@ namespace LibOneBot
         ///     HTTP 通信方式
         /// </summary>
         [DataMember(Name = "http")]
-        public ConfigCommHTTP HTTP { get; set; }
+        public List<ConfigCommHTTP>? HTTP { get; set; }
 
         /// <summary>
         ///     HTTP Webhook 通信方式
         /// </summary>
         [DataMember(Name = "http_webhook")]
-        public ConfigCommHTTPWebhook HTTPWebhook { get; set; }
+        public List<ConfigCommHTTPWebhook>? HTTPWebhook { get; set; }
 
         /// <summary>
         ///     WebSocket 通信方式
         /// </summary>
         [DataMember(Name = "ws")]
-        public ConfigCommWS WS { get; set; }
+        public List<ConfigCommWS>? WS { get; set; }
 
         /// <summary>
         ///     反向 WebSocket 通信方式
         /// </summary>
         [DataMember(Name = "ws_reverse")]
-        public ConfigCommWSReverse WSReverse { get; set; }
+        public List<ConfigCommWSReverse>? WSReverse { get; set; }
     }
 
     /// <summary>
