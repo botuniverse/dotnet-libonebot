@@ -114,7 +114,7 @@ namespace LibOneBot
         ///     返回数据
         /// </summary>
         [DataMember(Name = "data")]
-        public TData Data { get; set; }
+        public TData? Data { get; set; }
 
         /// <summary>
         ///     错误信息
@@ -128,18 +128,24 @@ namespace LibOneBot
         [DataMember(Name = "echo")]
         public object? Echo { get; set; }
 
-        public static Response<TData> FailedResponse(int retCode, Exception exception) =>
-            new()
-            {
-                Status = ActionStatus.StatusFailed,
-                RetCode = retCode,
-                Message = exception.Message
-            };
-
         public byte[] Encode(bool isBinary) =>
             isBinary
                 ? MessagePackSerializer.Serialize(this)
                 : Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(this));
+    }
+
+    public static class Response
+    {
+        public static Response<object> CreateFailed(int retCode, Exception exception) =>
+            CreateFailed(retCode, exception.Message);
+
+        public static Response<object> CreateFailed(int retCode, string error) =>
+            new()
+            {
+                Status = ActionStatus.StatusFailed,
+                RetCode = retCode,
+                Message = error
+            };
     }
 
     /// <summary>
