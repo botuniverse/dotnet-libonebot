@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibOneBot", "src\LibOneBot.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibOneBot.Test", "test\LibOneBot.Test.csproj", "{33536CA3-7F92-4802-89EC-1E8E3BC5514B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibOneBot.Build", "build\LibOneBot.Build.csproj", "{FE4AFAB0-C2EA-4A70-9622-50F38CC8514A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{33536CA3-7F92-4802-89EC-1E8E3BC5514B}.Release|x64.Build.0 = Release|Any CPU
 		{33536CA3-7F92-4802-89EC-1E8E3BC5514B}.Release|x86.ActiveCfg = Release|Any CPU
 		{33536CA3-7F92-4802-89EC-1E8E3BC5514B}.Release|x86.Build.0 = Release|Any CPU
+		{FE4AFAB0-C2EA-4A70-9622-50F38CC8514A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE4AFAB0-C2EA-4A70-9622-50F38CC8514A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE4AFAB0-C2EA-4A70-9622-50F38CC8514A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FE4AFAB0-C2EA-4A70-9622-50F38CC8514A}.Debug|x64.Build.0 = Debug|Any CPU
+		{FE4AFAB0-C2EA-4A70-9622-50F38CC8514A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FE4AFAB0-C2EA-4A70-9622-50F38CC8514A}.Debug|x86.Build.0 = Debug|Any CPU
+		{FE4AFAB0-C2EA-4A70-9622-50F38CC8514A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE4AFAB0-C2EA-4A70-9622-50F38CC8514A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE4AFAB0-C2EA-4A70-9622-50F38CC8514A}.Release|x64.ActiveCfg = Release|Any CPU
+		{FE4AFAB0-C2EA-4A70-9622-50F38CC8514A}.Release|x64.Build.0 = Release|Any CPU
+		{FE4AFAB0-C2EA-4A70-9622-50F38CC8514A}.Release|x86.ActiveCfg = Release|Any CPU
+		{FE4AFAB0-C2EA-4A70-9622-50F38CC8514A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
