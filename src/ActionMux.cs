@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using Newtonsoft.Json.Linq;
 
 namespace LibOneBot
 {
@@ -9,7 +10,7 @@ namespace LibOneBot
     /// </summary>
     public class ActionMux : IHandler
     {
-        private readonly Dictionary<string, IHandler> _handlers = new();
+        private readonly Dictionary<string, (IHandler Handler, Type RequestType, Type ResponseType)> _handlers = new();
 
         /// <summary>
         ///     创建一个新的 <see cref="ActionMux" /> 对象
@@ -27,7 +28,8 @@ namespace LibOneBot
         public void HandleAction(object response, object request)
         {
             string action = ((IRequestIntl)request).Action;
-            bool hasValue = _handlers.TryGetValue(action, out IHandler? handler);
+            bool hasValue =
+                _handlers.TryGetValue(action, out (IHandler Handler, Type RequestType, Type ResponseType) tuple);
             if (!hasValue)
             {
                 ((IResponseIntl)response).WriteFailedIntl(
@@ -36,7 +38,32 @@ namespace LibOneBot
                 return;
             }
 
-            handler!.HandleAction(response, request);
+            tuple.Handler.HandleAction(response, request);
+        }
+
+        internal object HandleActionIntl(
+            string action,
+            object payload,
+            bool isBinary)
+        {
+            if (isBinary)
+                throw new NotImplementedException();
+
+            bool hasValue =
+                _handlers.TryGetValue(action, out (IHandler Handler, Type RequestType, Type ResponseType) tuple);
+            if (!hasValue)
+            {
+                Response<object> r = new();
+                r.WriteFailedIntl(
+                    RetCode.RetCodeActionNotFound,
+                    new InvalidOperationException($"动作 {action} 不存在"));
+                return r;
+            }
+
+            object request = ((JObject)payload).ToObject(tuple.RequestType)!;
+            object response = Activator.CreateInstance(tuple.ResponseType)!;
+            tuple.Handler.HandleAction(response, request);
+            return response;
         }
 
         private void HandleGetSupportedActions(
@@ -57,7 +84,7 @@ namespace LibOneBot
         public void HandleFunc<TData, TParams>(
             string action,
             Action<Response<TData>, Request<TParams>> handler) =>
-            Handle(action, new HandlerFunc<TData, TParams>(handler));
+            Handle(action, new HandlerFunc<TData, TParams>(handler), typeof(Response<TData>), typeof(Request<TParams>));
 
         /// <summary>
         ///     将一个 <see cref="IHandler" /> 对象注册为指定动作的请求处理器
@@ -66,11 +93,11 @@ namespace LibOneBot
         ///     <para>若要注册为核心动作的请求处理器, 建议使用 <see cref="Actions" /> 常量作为动作名</para>
         /// </remarks>
         /// <exception cref="ArgumentNullException">动作名称为空时引发</exception>
-        public void Handle(string action, IHandler handler)
+        internal void Handle(string action, IHandler handler, Type responseType, Type requestType)
         {
             if (string.IsNullOrWhiteSpace(action))
                 throw new ArgumentNullException(nameof(action), "动作名称不能为空");
-            _handlers[action] = handler;
+            _handlers[action] = (handler, responseType, requestType);
         }
     }
 }
