@@ -39,6 +39,7 @@
   <ItemGroup>
     <PackageReference Include="FastMember" Version="1.5.0" />
     <PackageReference Include="Fleck" Version="1.2.0" />
+    <PackageReference Include="HttpClientFactoryLite" Version="0.4.0" />
     <PackageReference Include="MessagePack" Version="2.3.85" />
     <PackageReference Include="MessagePackAnalyzer" Version="2.3.85" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
