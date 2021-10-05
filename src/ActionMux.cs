@@ -60,9 +60,10 @@ namespace LibOneBot
                 return r;
             }
 
-            object request = ((JObject)payload).ToObject(tuple.RequestType)!;
-            object response = Activator.CreateInstance(tuple.ResponseType)!;
+            IRequestIntl request = (IRequestIntl)((JObject)payload).ToObject(tuple.RequestType)!;
+            IResponseIntl response = (IResponseIntl)Activator.CreateInstance(tuple.ResponseType)!;
             tuple.Handler.HandleAction(response, request);
+            response.Echo = request.Echo;
             return response;
         }
 
