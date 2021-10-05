@@ -43,6 +43,7 @@
     <PackageReference Include="MessagePack" Version="2.3.85" />
     <PackageReference Include="MessagePackAnalyzer" Version="2.3.85" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
     <PackageReference Include="Websocket.Client" Version="4.3.38" />
   </ItemGroup>
 
