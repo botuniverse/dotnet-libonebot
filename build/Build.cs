@@ -63,7 +63,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetPack(s => s
-                .SetProject(SourceDirectory / "core" / "LibOneBot.csproj")
+                .SetProject(SourceDirectory / "LibOneBot.csproj")
                 .SetConfiguration("Release")
                 .SetAssemblyVersion(GitVersion.AssemblySemVer)
                 .SetFileVersion(GitVersion.AssemblySemFileVer)
@@ -79,7 +79,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetTest(s => s
-                .SetProjectFile(TestDirectory / "core" / "LibOneBot.Test.csproj")
+                .SetProjectFile(TestDirectory / "LibOneBot.Test.csproj")
                 .EnableNoRestore());
         });
 }
