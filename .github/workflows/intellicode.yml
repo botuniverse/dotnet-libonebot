@@ -1,0 +1,21 @@
+name: IntelliCode
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 0
+    - name: Compile
+      run: |
+        ./build.cmd Compile --configuration Release
+    - name: Train Intellicode Model
+      uses: microsoft/vs-intellicode@v1
