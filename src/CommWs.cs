@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace LibOneBot
 {
-    public class WebSocketComm
+    public class WebSocketComm : IAsyncDisposable
     {
         #region Fields
 

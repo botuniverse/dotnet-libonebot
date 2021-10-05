@@ -8,7 +8,7 @@ using Websocket.Client;
 
 namespace LibOneBot
 {
-    public class WebSocketReverseComm
+    public class WebSocketReverseComm : IAsyncDisposable
     {
         #region Fields
 

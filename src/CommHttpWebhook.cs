@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace LibOneBot
 {
-    public class HttpWebhookComm
+    public class HttpWebhookComm : IAsyncDisposable
     {
         #region Fields
 
