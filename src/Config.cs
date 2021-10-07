@@ -169,7 +169,7 @@ namespace LibOneBot
         public string URL { get; set; }
 
         /// <summary>
-        ///     反向 WebSocket 重连间隔
+        ///     反向 WebSocket 重连间隔，单位为毫秒
         /// </summary>
         [DataMember(Name = "reconnect_interval")]
         public int ReconnectInterval { get; set; }
